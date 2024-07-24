@@ -6,33 +6,32 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
+import java.util.UUID
 import java.util.stream.Stream
 
 @QuarkusTest
 class GreetingResourceTest {
 
     @ParameterizedTest
-    @MethodSource("provider")
-    fun test1(
-        function1: (String) -> String,
-    ) {
-        Log.info("test")
-    }
-
-    @Test
-    fun test2() {
-        test1(function1)
+    @MethodSource("array")
+    fun testArray(a: List<ObjectB>){
+        Log.info(a)
     }
 
     companion object {
 
-        val function1: (String) -> String = { r: String -> r }
-
         @JvmStatic
-        fun provider(): Stream<Arguments> {
-
-            return Stream.of(Arguments.of(function1))
+        fun array(): Stream<Arguments> {
+            return Stream.of(Arguments.of(
+                listOf(
+                    ObjectB(
+                        s = "1",
+                    ),
+                    ObjectB(
+                        s = "2",
+                    ),
+                ),
+            ))
         }
-
     }
 }
